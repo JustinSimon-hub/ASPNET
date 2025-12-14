@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Testing;
 using Testing.Models;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -16,5 +16,11 @@ namespace Testing.Models
         {
             return _connection.Query<Products>("SELECT * FROM Products");
         }
+
+        public Products GetProduct(int id)
+        {
+           return _connection.QuerySingle<Products>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id",
+               new {id = id});
+        }
     }
 }

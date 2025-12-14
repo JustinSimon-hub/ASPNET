@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Testing.Models;
 
-namespace Testing
+namespace Testing.Models
 {
     public interface IProductRepository
     {
         public IEnumerable<Products> GetAllProducts();
+        public Products GetProduct(int id); 
 
     }
 }
