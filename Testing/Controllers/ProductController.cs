@@ -28,6 +28,7 @@ namespace Testing.Controllers
         }
 
         //HttpGet  
+        [HttpGet]
         public IActionResult UpdateProduct(int id)
         {
             var prod = repo.GetProduct(id);
@@ -42,13 +43,27 @@ namespace Testing.Controllers
 
 
         //HttpPost
-        public IActionResult UpdateProductToDatabase(Products product)
+        //Update product to database
+        [HttpPost]
+        public IActionResult UpdateProductToDatabase(Product product)
         {
             repo.UpdateProduct(product);
 
             return RedirectToAction("ViewProduct", new { id = product.ProductID });
         }
+        public IActionResult InsertProduct()
+        {
+            var prod = repo.AssignCategory();
 
+            return View(prod);
+        }
+
+        public IActionResult InsertProductToDatabase(Product productToInsert)
+        {
+            repo.InsertProduct(productToInsert);
+
+            return RedirectToAction("Index");
+        }
 
 
     }

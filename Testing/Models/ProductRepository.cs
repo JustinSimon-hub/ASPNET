@@ -12,27 +12,49 @@ namespace Testing.Models
         {
             _connection = connection;
         }
-        //Get all products actions
-       public IEnumerable<Products> GetAllProducts()
+        public Product AssignCategory()
         {
-            return _connection.Query<Products>("SELECT * FROM Products");
+            var categoryList = GetCategories();
+            var product = new Product();
+            product.Categories = categoryList;
+
+            return product;
         }
 
-        //Get product action
-        public Products GetProduct(int id)
+        //Get all products actions
+        public IEnumerable<Product> GetAllProducts()
         {
-           return _connection.QuerySingle<Products>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id",
+            return _connection.Query<Product>("SELECT * FROM Products");
+        }
+
+        public IEnumerable<Category> GetCategories()
+        {
+            return _connection.Query<Category>("SELECT * FROM categories;");
+        }
+
+
+        //Get product action
+        public Product GetProduct(int id)
+        {
+           return _connection.QuerySingle<Product>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id",
                new {id = id});
+        }
+
+        public void InsertProduct(Product productToInsert)
+        {
+            _connection.Execute("INSERT INTO products (NAME, PRICE, CATEGORYID) VALUES (@name, @price, @categoryID);",
+                new { name = productToInsert.Name, price = productToInsert.Price, categoryID = productToInsert.CategoryID });
         }
 
         //Update product action
 
-        public void UpdateProduct(Products product)
+        public void UpdateProduct(Product product)
         {
             _connection.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
                 new { name = product.Name, price = product.Price, id = product.ProductID });
         }
 
-         
+
+
     }
 }
