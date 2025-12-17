@@ -17,6 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IDbConnection>((s) =>
 {
     IDbConnection conn = new MySqlConnection(builder.Configuration.GetConnectionString("bestbuy"));
+    //Ensure connection is opened via MySqlBench or used database provider
     conn.Open();
     return conn;
 
